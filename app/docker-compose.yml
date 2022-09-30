@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  app:
+    image: node:12-alpine
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    command: sh -c "apk add --no-cache python2 g++ make && yarn install && yarn run dev"
+  
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos 
+    volumes:
+      - todo-vol:/var/lib/mysql
+
+volumes:
+  todo-vol:
+    
+#    todo-volume:/var/lib/mysql
+
+  
+  
+  
